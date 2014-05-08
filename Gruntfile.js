@@ -24,13 +24,13 @@ module.exports = function(grunt) {
         }
       }
     },
-    connect: {
-      livereload: {
-        options: {
-          port: 8000
-        }
-      }
-    },
+//    connect: {
+//      livereload: {
+//        options: {
+//          port: 8000
+//        }
+//      }
+//    },
     watch: {
       sass: {
         files: ['./scss/*.scss'],
@@ -59,5 +59,16 @@ module.exports = function(grunt) {
     }
   }
 
+  //connect‚Ìİ’è
+  var connect = require('connect');
+  
+  grunt.registerTask('connect', 'Start a custom static web server.', function() {
+    grunt.log.writeln('Starting static web server on port 8000.');
+    var app = connect();
+    app.use(connect.directory(__dirname)); //directory‚Ì•\¦‚ğ—Dæ
+    app.use(connect.static(__dirname)); //html‚Ì•\¦‚Í‚»‚ÌŸ
+    app.listen(8000);
+  });
+  
   grunt.registerTask('default', ['connect', 'sass', 'cssmin', 'watch']);
 };
